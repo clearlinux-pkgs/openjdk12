@@ -1,0 +1,41 @@
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/lib/jvm/java-1.12.0-openjdk
+cp -r build/linux-x86_64-server-release/images/jdk/* %{buildroot}/usr/lib/jvm/java-1.12.0-openjdk
+
+mkdir -p %{buildroot}/usr/lib64
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/lib/jli/libjli.so %{buildroot}/usr/lib64/libjli12.so
+
+mkdir -p %{buildroot}/usr/bin
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jaotc %{buildroot}/usr/bin/jaotc12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jar %{buildroot}/usr/bin/jar12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jarsigner %{buildroot}/usr/bin/jarsigner12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/java %{buildroot}/usr/bin/java12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/javac %{buildroot}/usr/bin/javac12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/javadoc %{buildroot}/usr/bin/javadoc12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/javap %{buildroot}/usr/bin/javap12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jcmd %{buildroot}/usr/bin/jcmd12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jconsole %{buildroot}/usr/bin/jconsole12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jdb %{buildroot}/usr/bin/jdb12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jdeprscan %{buildroot}/usr/bin/jdeprscan12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jfr %{buildroot}/usr/bin/jfr12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jdeps %{buildroot}/usr/bin/jdeps12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jhsdb %{buildroot}/usr/bin/jhsdb12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jimage %{buildroot}/usr/bin/jimage12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jinfo %{buildroot}/usr/bin/jinfo12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jjs %{buildroot}/usr/bin/jjs12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jlink %{buildroot}/usr/bin/jlink12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jmap %{buildroot}/usr/bin/jmap12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jmod %{buildroot}/usr/bin/jmod12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jps %{buildroot}/usr/bin/jps12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jrunscript %{buildroot}/usr/bin/jrunscript12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jshell %{buildroot}/usr/bin/jshell12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jstack %{buildroot}/usr/bin/jstack12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jstat %{buildroot}/usr/bin/jstat12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jstatd %{buildroot}/usr/bin/jstatd12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/keytool  %{buildroot}/usr/bin/keytool12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/pack200  %{buildroot}/usr/bin/pack20012
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/rmic  %{buildroot}/usr/bin/rmic12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/rmid  %{buildroot}/usr/bin/rmid12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/rmiregistry %{buildroot}/usr/bin/rmiregistry12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/serialver %{buildroot}/usr/bin/serialver12
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/unpack200 %{buildroot}/usr/bin/unpack20012
