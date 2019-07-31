@@ -3,7 +3,6 @@ Configure miss: gmkdir
 Configure miss: nawk
 Configure miss: greadlink
 Configure miss: cygpath
-Configure miss: pandoc
 Configure miss: if custom source is suppressed (openjdk-only)
 Configure miss: apt-get
 Configure miss: yum
@@ -18,8 +17,6 @@ Configure miss: time
 Configure miss: dtrace
 Configure miss: gpatch
 Configure miss: headless only
-Configure miss: pandoc
-Configure miss: full docs
 Configure miss: gobjcopy
 Configure miss: gobjdump
 Configure miss: jtreg
