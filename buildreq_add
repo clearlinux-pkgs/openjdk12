@@ -11,6 +11,6 @@ libXi-dev
 libXrender-dev
 libXt-dev
 libXtst-dev
-openjdk11
-openjdk11-dev
+openjdk12
+openjdk12-dev
 zip

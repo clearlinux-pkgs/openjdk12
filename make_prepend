@@ -1,10 +1,12 @@
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
 bash configure \
---with-boot-jdk=/usr/lib/jvm/java-1.11.0-openjdk \
+--with-boot-jdk=/usr/lib/jvm/java-1.12.0-openjdk \
 --x-includes=/usr/include/ \
 --x-libraries=/usr/lib64 \
 --with-zlib=system \
+--with-version-opt="" \
+--with-version-pre="" \
 --enable-ccache \
 --disable-warnings-as-errors \
 --prefix=%{buildroot}/usr/lib
