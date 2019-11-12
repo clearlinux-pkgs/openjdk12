@@ -1,0 +1,68 @@
+From c9b8bc1a9e8bc7c115ac5cc3502e4a1644b022fb Mon Sep 17 00:00:00 2001
+From: Athenas Jimenez <athenas.jimenez.gonzalez@intel.com>
+Date: Tue, 12 Nov 2019 14:26:05 -0800
+Subject: [PATCH] Rename jli as jli12
+
+---
+ make/launcher/LauncherCommon.gmk | 4 ++--
+ make/lib/CoreLibraries.gmk       | 2 +-
+ make/lib/Lib-java.instrument.gmk | 6 +++---
+ 3 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/make/launcher/LauncherCommon.gmk b/make/launcher/LauncherCommon.gmk
+index 520f6feaa..e51d16ce1 100644
+--- a/make/launcher/LauncherCommon.gmk
++++ b/make/launcher/LauncherCommon.gmk
+@@ -161,10 +161,10 @@ define SetupBuildLauncherBody
+           -L$(call FindLibDirForModule, java.base), \
+       LDFLAGS_aix := -L$(SUPPORT_OUTPUTDIR)/native/java.base, \
+       LIBS := $(JDKEXE_LIBS) $$($1_LIBS), \
+-      LIBS_linux := -ljli -lpthread $(LIBDL), \
++      LIBS_linux := -ljli12 -lpthread $(LIBDL), \
+       LIBS_macosx := -ljli -framework Cocoa -framework Security \
+           -framework ApplicationServices, \
+-      LIBS_solaris := -ljli -lthread $(LIBDL), \
++      LIBS_solaris := -ljli12 -lthread $(LIBDL), \
+       LIBS_aix := -ljli_static, \
+       LIBS_windows := $$($1_WINDOWS_JLI_LIB) \
+           $(SUPPORT_OUTPUTDIR)/native/java.base/libjava/java.lib, \
+diff --git a/make/lib/CoreLibraries.gmk b/make/lib/CoreLibraries.gmk
+index ec1a2107d..7ff2a676f 100644
+--- a/make/lib/CoreLibraries.gmk
++++ b/make/lib/CoreLibraries.gmk
+@@ -208,7 +208,7 @@ ifneq ($(USE_EXTERNAL_LIBZ), true)
+ endif
+ 
+ $(eval $(call SetupJdkLibrary, BUILD_LIBJLI, \
+-    NAME := jli, \
++    NAME := jli12, \
+     OUTPUT_DIR := $(INSTALL_LIBRARIES_HERE), \
+     EXCLUDE_FILES := $(LIBJLI_EXCLUDE_FILES), \
+     EXTRA_FILES := $(LIBJLI_EXTRA_FILES), \
+diff --git a/make/lib/Lib-java.instrument.gmk b/make/lib/Lib-java.instrument.gmk
+index cf57be6e5..2afb3e036 100644
+--- a/make/lib/Lib-java.instrument.gmk
++++ b/make/lib/Lib-java.instrument.gmk
+@@ -53,8 +53,8 @@ $(eval $(call SetupJdkLibrary, BUILD_LIBINSTRUMENT, \
+     LDFLAGS_aix := -L$(SUPPORT_OUTPUTDIR)/native/java.base, \
+     LIBS := $(JDKLIB_LIBS), \
+     LIBS_unix := -ljava -ljvm $(LIBZ_LIBS), \
+-    LIBS_linux := -ljli $(LIBDL), \
+-    LIBS_solaris := -ljli $(LIBDL), \
++    LIBS_linux := -ljli12 $(LIBDL), \
++    LIBS_solaris := -ljli12 $(LIBDL), \
+     LIBS_aix := -liconv -ljli_static $(LIBDL), \
+     LIBS_macosx := -ljli -liconv -framework Cocoa -framework Security \
+         -framework ApplicationServices, \
+@@ -65,7 +65,7 @@ $(eval $(call SetupJdkLibrary, BUILD_LIBINSTRUMENT, \
+ ifeq ($(OPENJDK_TARGET_OS), aix)
+   $(BUILD_LIBINSTRUMENT): $(call FindStaticLib, java.base, jli_static)
+ else
+-  $(BUILD_LIBINSTRUMENT): $(call FindLib, java.base, jli)
++  $(BUILD_LIBINSTRUMENT): $(call FindLib, java.base, jli12)
+ endif
+ $(BUILD_LIBINSTRUMENT): $(call FindLib, java.base, java)
+ 
+-- 
+2.24.0
+

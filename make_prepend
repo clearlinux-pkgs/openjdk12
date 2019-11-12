@@ -1,5 +1,7 @@
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
+cp -r src/java.base/share/native/libjli src/java.base/share/native/libjli12
+cp -r src/java.base/unix/native/libjli src/java.base/unix/native/libjli12
 bash configure \
 --with-boot-jdk=/usr/lib/jvm/java-1.12.0-openjdk \
 --x-includes=/usr/include/ \

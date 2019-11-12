@@ -4,16 +4,17 @@
 #
 Name     : openjdk12
 Version  : 12.0.2
-Release  : 2
+Release  : 3
 URL      : https://hg.openjdk.java.net/jdk-updates/jdk12u/archive/jdk-12.0.2-ga.tar.bz2
 Source0  : https://hg.openjdk.java.net/jdk-updates/jdk12u/archive/jdk-12.0.2-ga.tar.bz2
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : BSD-3-Clause GPL-2.0 Libpng MIT
+License  : BSD-3-Clause GPL-2.0 ICU Libpng MIT
 Requires: openjdk12-bin = %{version}-%{release}
 Requires: openjdk12-lib = %{version}-%{release}
 BuildRequires : alsa-lib-dev
 BuildRequires : apache-ant
+BuildRequires : apache-maven
 BuildRequires : buildreq-mvn
 BuildRequires : ca-certs
 BuildRequires : ccache
@@ -32,6 +33,7 @@ BuildRequires : openjdk12
 BuildRequires : openjdk12-dev
 BuildRequires : pandoc
 BuildRequires : zip
+Patch1: Rename-jli-as-jli12.patch
 
 %description
 Welcome to the JDK!
@@ -69,13 +71,15 @@ lib components for the openjdk12 package.
 
 %prep
 %setup -q -n jdk12u-jdk-12.0.2-ga
+cd %{_builddir}/jdk12u-jdk-12.0.2-ga
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1564604745
+export SOURCE_DATE_EPOCH=1573598971
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -87,6 +91,8 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 ## make_prepend content
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
+cp -r src/java.base/share/native/libjli src/java.base/share/native/libjli12
+cp -r src/java.base/unix/native/libjli src/java.base/unix/native/libjli12
 bash configure \
 --with-boot-jdk=/usr/lib/jvm/java-1.12.0-openjdk \
 --x-includes=/usr/include/ \
@@ -98,18 +104,19 @@ bash configure \
 --disable-warnings-as-errors \
 --prefix=%{buildroot}/usr/lib
 ## make_prepend end
-make  %{?_smp_mflags} || make images WARNINGS_ARE_ERRORS="-Wno-error" CFLAGS_WARNINGS_ARE_ERRORS="-Wno-error"
+make  %{?_smp_mflags}  || make images WARNINGS_ARE_ERRORS="-Wno-error" CFLAGS_WARNINGS_ARE_ERRORS="-Wno-error"
 
 
 %install
-export SOURCE_DATE_EPOCH=1564604745
+export SOURCE_DATE_EPOCH=1573598971
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openjdk12
-cp LICENSE %{buildroot}/usr/share/package-licenses/openjdk12/LICENSE
-cp src/java.desktop/share/native/libsplashscreen/giflib/COPYING %{buildroot}/usr/share/package-licenses/openjdk12/src_java.desktop_share_native_libsplashscreen_giflib_COPYING
-cp src/java.desktop/share/native/libsplashscreen/libpng/LICENSE %{buildroot}/usr/share/package-licenses/openjdk12/src_java.desktop_share_native_libsplashscreen_libpng_LICENSE
-cp src/java.smartcardio/unix/native/libj2pcsc/MUSCLE/COPYING %{buildroot}/usr/share/package-licenses/openjdk12/src_java.smartcardio_unix_native_libj2pcsc_MUSCLE_COPYING
-cp test/fmw/gtest/LICENSE %{buildroot}/usr/share/package-licenses/openjdk12/test_fmw_gtest_LICENSE
+cp %{_builddir}/jdk12u-jdk-12.0.2-ga/LICENSE %{buildroot}/usr/share/package-licenses/openjdk12/a4fb972c240d89131ee9e16b845cd302e0ecb05f
+cp %{_builddir}/jdk12u-jdk-12.0.2-ga/src/java.desktop/share/native/libsplashscreen/giflib/COPYING %{buildroot}/usr/share/package-licenses/openjdk12/f9c9a2d3495a0766b4cf20d4b90cfe714dab3dc1
+cp %{_builddir}/jdk12u-jdk-12.0.2-ga/src/java.desktop/share/native/libsplashscreen/libpng/LICENSE %{buildroot}/usr/share/package-licenses/openjdk12/113aaf5f7de2615f71219b6f0251755ad481d43e
+cp %{_builddir}/jdk12u-jdk-12.0.2-ga/src/java.smartcardio/unix/native/libj2pcsc/MUSCLE/COPYING %{buildroot}/usr/share/package-licenses/openjdk12/372a137c782a01dbba93279c914176efc10808f0
+cp %{_builddir}/jdk12u-jdk-12.0.2-ga/src/jdk.localedata/share/classes/sun/util/cldr/resources/unicode-license.txt %{buildroot}/usr/share/package-licenses/openjdk12/9c866fa85be5a5919e139e4b7b0e42a117a6b3cb
+cp %{_builddir}/jdk12u-jdk-12.0.2-ga/test/fmw/gtest/LICENSE %{buildroot}/usr/share/package-licenses/openjdk12/5a2314153eadadc69258a9429104cd11804ea304
 %make_install
 ## install_append content
 rm -rf %{buildroot}
@@ -666,7 +673,7 @@ ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/unpack200 %{buildroot}/usr/bin/unpack
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjawt.debuginfo
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjdwp.debuginfo
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjimage.debuginfo
-/usr/lib/jvm/java-1.12.0-openjdk/lib/libjli.debuginfo
+/usr/lib/jvm/java-1.12.0-openjdk/lib/libjli12.debuginfo
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjsig.debuginfo
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjsound.debuginfo
 /usr/lib/jvm/java-1.12.0-openjdk/lib/liblcms.debuginfo
@@ -791,7 +798,7 @@ ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/unpack200 %{buildroot}/usr/bin/unpack
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjawt.so
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjdwp.so
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjimage.so
-/usr/lib/jvm/java-1.12.0-openjdk/lib/libjli.so
+/usr/lib/jvm/java-1.12.0-openjdk/lib/libjli12.so
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjsig.so
 /usr/lib/jvm/java-1.12.0-openjdk/lib/libjsound.so
 /usr/lib/jvm/java-1.12.0-openjdk/lib/liblcms.so
