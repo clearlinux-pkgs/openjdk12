@@ -4,7 +4,7 @@
 #
 Name     : openjdk12
 Version  : 12.0.2
-Release  : 3
+Release  : 4
 URL      : https://hg.openjdk.java.net/jdk-updates/jdk12u/archive/jdk-12.0.2-ga.tar.bz2
 Source0  : https://hg.openjdk.java.net/jdk-updates/jdk12u/archive/jdk-12.0.2-ga.tar.bz2
 Summary  : No detailed summary available
@@ -79,7 +79,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1573598971
+export SOURCE_DATE_EPOCH=1573605488
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -108,7 +108,7 @@ make  %{?_smp_mflags}  || make images WARNINGS_ARE_ERRORS="-Wno-error" CFLAGS_WA
 
 
 %install
-export SOURCE_DATE_EPOCH=1573598971
+export SOURCE_DATE_EPOCH=1573605488
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/openjdk12
 cp %{_builddir}/jdk12u-jdk-12.0.2-ga/LICENSE %{buildroot}/usr/share/package-licenses/openjdk12/a4fb972c240d89131ee9e16b845cd302e0ecb05f
@@ -123,7 +123,8 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/lib/jvm/java-1.12.0-openjdk
 cp -r build/linux-x86_64-server-release/images/jdk/* %{buildroot}/usr/lib/jvm/java-1.12.0-openjdk
 mkdir -p %{buildroot}/usr/lib64
-ln -s /usr/lib/jvm/java-1.12.0-openjdk/lib/jli/libjli.so %{buildroot}/usr/lib64/libjli12.so
+chmod 755 %{buildroot}/usr/lib/jvm/java-1.12.0-openjdk/lib/libjli12.so
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/lib/libjli12.so %{buildroot}/usr/lib64/libjli12.so
 mkdir -p %{buildroot}/usr/bin
 ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jaotc %{buildroot}/usr/bin/jaotc12
 ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jar %{buildroot}/usr/bin/jar12

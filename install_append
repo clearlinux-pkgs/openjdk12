@@ -3,7 +3,8 @@ mkdir -p %{buildroot}/usr/lib/jvm/java-1.12.0-openjdk
 cp -r build/linux-x86_64-server-release/images/jdk/* %{buildroot}/usr/lib/jvm/java-1.12.0-openjdk
 
 mkdir -p %{buildroot}/usr/lib64
-ln -s /usr/lib/jvm/java-1.12.0-openjdk/lib/jli/libjli.so %{buildroot}/usr/lib64/libjli12.so
+chmod 755 %{buildroot}/usr/lib/jvm/java-1.12.0-openjdk/lib/libjli12.so
+ln -s /usr/lib/jvm/java-1.12.0-openjdk/lib/libjli12.so %{buildroot}/usr/lib64/libjli12.so
 
 mkdir -p %{buildroot}/usr/bin
 ln -s /usr/lib/jvm/java-1.12.0-openjdk/bin/jaotc %{buildroot}/usr/bin/jaotc12
